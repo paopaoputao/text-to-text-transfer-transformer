@@ -1,4 +1,4 @@
-# Copyright 2024 The T5 Authors.
+# Copyright 2025 The T5 Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -2825,10 +2825,10 @@ def single_example_denoise(
     inputs_fn = functools.partial(inputs_fn, batch_size=batch_size)
     targets_fn = functools.partial(targets_fn, batch_size=batch_size)
   length = tf.size(tokens) // (batch_size or 1)
-  noise_mask = noise_mask_fn(length, noise_density, seeds=seeds[:2])
-  inputs = inputs_fn(tokens, noise_mask, vocabulary, seeds=seeds[2:4])
+  noise_mask = noise_mask_fn(length, noise_density, seeds=seeds[:2])  # pytype: disable=wrong-keyword-args
+  inputs = inputs_fn(tokens, noise_mask, vocabulary, seeds=seeds[2:4])  # pytype: disable=wrong-keyword-args
   if targets_fn:
-    targets = targets_fn(tokens, noise_mask, vocabulary, seeds=seeds[4:6])
+    targets = targets_fn(tokens, noise_mask, vocabulary, seeds=seeds[4:6])  # pytype: disable=wrong-keyword-args
   else:
     targets = tokens
   return {
